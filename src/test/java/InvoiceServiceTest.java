@@ -17,7 +17,7 @@ public class InvoiceServiceTest {
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
         double distance = 2.0;
         int time = 5;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(distance, time,"normal");
         Assert.assertEquals(25, fare, 0.0);
     }
 
@@ -25,7 +25,7 @@ public class InvoiceServiceTest {
     public void givenLessDistanceAndTime_ShouldReturnMinimumFare() {
         double distance = 0.1;
         int time = 1;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(distance, time,"premium");
         Assert.assertEquals(5, fare, 0.0);
     }
 
@@ -38,12 +38,12 @@ public class InvoiceServiceTest {
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
     @Test
-    public void givenMultipleRides_AndGivenUserId_ShouldReturnInvoiceAndListOfRide() {
-        Ride[] rides = {new Ride(2.0, 5,"raj"),
-                        new Ride(2.0, 5,"raj"),
-                        new Ride(0.1, 1,"raj"),
-                        new Ride(0.1, 1,"sham")};
+    public void givenMultipleRides_AndGivenUserIdRideType_ShouldReturnInvoice() {
+        Ride[] rides = {new Ride(2.0, 5,"raj","premium"),
+                        new Ride(2.0, 5,"raj","premium"),
+                        new Ride(2.0, 5,"raj","premium"),
+                        new Ride(0.1, 1,"sham","premium")};
         double totalInvoice = invoiceGenerator.calculateTotalInvoice(rides,"raj");
-        Assert.assertEquals(55,totalInvoice,0.0);
+        Assert.assertEquals(120,totalInvoice,0.0);
     }
 }
